@@ -1,9 +1,11 @@
 {
   "name": "ameba",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Common library for tidepool.org",
   "keywords": [
-    "common", "util", "misc"
+    "common",
+    "util",
+    "misc"
   ],
   "homepage": "https://github.com/tidepool-org/ameba",
   "bugs": "https://github.com/tidepool-org/ameba/issues",
