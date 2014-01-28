@@ -57,7 +57,6 @@ describe('polling.js', function(){
       polling.repeatAfterDelay(
         "test",
         function(cb){
-          console.log('Hi!');
           if (count === 0) {
             expect(changeMe).equals('done');
             count = 1;
