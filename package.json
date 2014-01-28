@@ -1,6 +1,6 @@
 {
   "name": "amoeba",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Common library for tidepool.org",
   "keywords": [
     "common",
@@ -17,7 +17,8 @@
   },
   "contributors": [],
   "files": [
-    "lib", "index.js"
+    "lib",
+    "index.js"
   ],
   "main": "index.js",
   "repository": "https://github.com/tidepool-org/ameba.git",
