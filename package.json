@@ -17,7 +17,7 @@
   },
   "contributors": [],
   "files": [
-    "lib"
+    "lib", "index.js"
   ],
   "main": "index.js",
   "repository": "https://github.com/tidepool-org/ameba.git",
