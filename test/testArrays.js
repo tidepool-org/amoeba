@@ -13,8 +13,7 @@
 // not, you can obtain one from Tidepool Project at tidepool.org.
 // == BSD2 LICENSE ==
 
-var fixture = require('./fixture.js');
-var expect = fixture.expect;
+var expect = require('salinity').expect;
 
 var arrays = require('../lib/arrays.js');
 

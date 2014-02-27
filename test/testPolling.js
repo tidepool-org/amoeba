@@ -13,7 +13,7 @@
 // not, you can obtain one from Tidepool Project at tidepool.org.
 // == BSD2 LICENSE ==
 
-var expect = require('./fixture.js').expect;
+var expect = require('salinity').expect;
 
 describe('polling.js', function(){
 
