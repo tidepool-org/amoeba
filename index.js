@@ -14,7 +14,7 @@
 // == BSD2 LICENSE ==
 
 exports.arrays = require('./lib/arrays.js');
-exports.base32Hex = require('./lib/base32hex.js');
+exports.base32hex = require('./lib/base32hex.js');
 exports.config = require('./lib/config.js');
 exports.except = require('./lib/except.js');
 exports.files = require('./lib/files.js');
