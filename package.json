@@ -7,8 +7,8 @@
     "util",
     "misc"
   ],
-  "homepage": "https://github.com/tidepool-org/ameba",
-  "bugs": "https://github.com/tidepool-org/ameba/issues",
+  "homepage": "https://github.com/tidepool-org/amoeba",
+  "bugs": "https://github.com/tidepool-org/amoeba/issues",
   "license": "BSD-2-clause",
   "author": {
     "name": "Eric Tschetter",
@@ -21,7 +21,7 @@
     "index.js"
   ],
   "main": "index.js",
-  "repository": "https://github.com/tidepool-org/ameba.git",
+  "repository": "https://github.com/tidepool-org/amoeba.git",
   "dependencies": {
     "bunyan": "0.22.1",
     "lodash": "2.4.1"
