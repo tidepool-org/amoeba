@@ -1,6 +1,6 @@
 var expect = require('salinity').expect;
 
-var base32Hex = require('../index.js').base32Hex;
+var base32Hex = require('../index.js').base32hex;
 
 describe('encodeBuffer', function(){
   describe('test vectors from rfc 4648', function(){
