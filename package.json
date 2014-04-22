@@ -23,8 +23,9 @@
   "main": "index.js",
   "repository": "https://github.com/tidepool-org/amoeba.git",
   "dependencies": {
-    "bunyan": "0.22.1",
-    "lodash": "2.4.1"
+    "bunyan": "0.22.3",
+    "lodash": "2.4.1",
+    "request": "2.34.0"
   },
   "devDependencies": {
     "mocha": "1.16.2",
