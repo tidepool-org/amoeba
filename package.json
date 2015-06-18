@@ -9,7 +9,7 @@
   ],
   "homepage": "https://github.com/tidepool-org/amoeba",
   "bugs": "https://github.com/tidepool-org/amoeba/issues",
-  "license": "BSD-2-clause",
+  "license": "BSD-2-Clause",
   "author": {
     "name": "Eric Tschetter",
     "email": "cheddar@tidepool.org",
