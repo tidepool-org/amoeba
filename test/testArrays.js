@@ -13,18 +13,23 @@
 // not, you can obtain one from Tidepool Project at tidepool.org.
 // == BSD2 LICENSE ==
 
+// expect violates this jshint thing a lot, so we just suppress it
+/* jshint expr: true */
+
+'use strict';
+
 var expect = require('salinity').expect;
 
 var arrays = require('../lib/arrays.js');
 
 describe('arrays.js', function(){
   describe('randomize', function(){
-    it("returns an empty list if given an empty list", function(){
+    it('returns an empty list if given an empty list', function(){
       var array = [];
       expect(arrays.randomize(array, 1)).is.empty;
     });
 
-    it("returns the number of elements asked for", function(){
+    it('returns the number of elements asked for', function(){
       var array = [1, 2, 3, 4];
       expect(arrays.randomize(array, 1)).length(1);
       expect(arrays.randomize(array, 2)).length(2);
@@ -32,7 +37,7 @@ describe('arrays.js', function(){
       expect(arrays.randomize(array, 4)).length(4);
     });
 
-    it("returns all elements if asked for length", function(){
+    it('returns all elements if asked for length', function(){
       var array = [1, 2, 3, 4];
       var retVal = arrays.randomize(array, 4);
 
@@ -40,7 +45,7 @@ describe('arrays.js', function(){
       expect(retVal.sort()).to.deep.equal(array);
     });
 
-    it("returns all elements, once, if asked for more than length", function(){
+    it('returns all elements, once, if asked for more than length', function(){
       var array = [1, 2, 3, 4];
       var retVal = arrays.randomize(array, 1902309184);
 

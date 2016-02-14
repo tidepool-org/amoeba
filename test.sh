@@ -1,3 +1,4 @@
-#! /bin/bash -eu
+#!/bin/bash -eu
 
-mocha
+./node_modules/.bin/jshint *.js lib/*.js test/*.js 
+npm test

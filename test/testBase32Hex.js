@@ -15,6 +15,8 @@
  * == BSD2 LICENSE ==
  */
 
+'use strict';
+
 var expect = require('salinity').expect;
 
 var base32Hex = require('../index.js').base32hex;
@@ -61,6 +63,6 @@ describe('encodeBuffer', function(){
 
     it('pads with a hypen instead', function(){
       run('foobar', '-').equals('cpnmuoj1e8------');
-    })
+    });
   });
 });

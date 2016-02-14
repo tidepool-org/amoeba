@@ -21,6 +21,12 @@
     "index.js"
   ],
   "main": "index.js",
+  "directories": {
+    "lib": "./lib"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
   "repository": "https://github.com/tidepool-org/amoeba.git",
   "dependencies": {
     "bunyan": "1.4.0",
@@ -28,6 +34,7 @@
     "request": "2.53.0"
   },
   "devDependencies": {
+    "jshint": "2.6.3",
     "mocha": "2.1.0",
     "salinity": "0.0.7"
   }

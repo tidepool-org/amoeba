@@ -13,18 +13,20 @@
 // not, you can obtain one from Tidepool Project at tidepool.org.
 // == BSD2 LICENSE ==
 
+'use strict';
+
 var expect = require('salinity').expect;
 
 describe('polling.js', function(){
 
   describe('repeat()', function(){
-    it("should run immediately and repeat", function(done){
+    it('should run immediately and repeat', function(done){
       var polling = require('../lib/polling.js');
 
       var count = 0;
       var changeMe = 'hi';
       polling.repeat(
-        "test",
+        'test',
         function(cb){
           if (count === 0) {
             expect(changeMe).equals('hi');
@@ -49,13 +51,13 @@ describe('polling.js', function(){
   });
 
   describe('repeatAfterDelay()', function(){
-    it("should run after a delay and repeat", function(done){
+    it('should run after a delay and repeat', function(done){
       var polling = require('../lib/polling.js');
 
       var count = 0;
       var changeMe = 'hi';
       polling.repeatAfterDelay(
-        "test",
+        'test',
         function(cb){
           if (count === 0) {
             expect(changeMe).equals('done');
