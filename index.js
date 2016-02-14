@@ -22,3 +22,4 @@ exports.httpClient = require('./lib/httpClient.js');
 exports.lifecycle = require('./lib/lifecycle.js');
 exports.polling = require('./lib/polling.js');
 exports.pre = require('./lib/pre.js');
+exports.permissions = require('./lib/permissions.js');
