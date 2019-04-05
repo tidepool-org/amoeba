@@ -1,6 +1,6 @@
 {
   "name": "amoeba",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "description": "Common library for tidepool.org",
   "keywords": [
     "common",
@@ -37,5 +37,8 @@
     "jshint": "2.6.3",
     "mocha": "2.1.0",
     "salinity": "0.0.7"
+  },
+  "resolutions": {
+    "**/request/tough-cookie": "2.4.3"
   }
 }
