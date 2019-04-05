@@ -31,14 +31,11 @@
   "dependencies": {
     "bunyan": "1.4.0",
     "lodash": "3.4.0",
-    "request": "2.53.0"
+    "request": "^2.88.0"
   },
   "devDependencies": {
-    "jshint": "2.6.3",
+    "jshint": "^2.10.2",
     "mocha": "2.1.0",
     "salinity": "0.0.7"
-  },
-  "resolutions": {
-    "**/request/tough-cookie": "2.4.3"
   }
 }
