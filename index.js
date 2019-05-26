@@ -13,6 +13,8 @@
 // not, you can obtain one from Tidepool Project at tidepool.org.
 // == BSD2 LICENSE ==
 
+'use strict';
+
 exports.arrays = require('./lib/arrays.js');
 exports.base32hex = require('./lib/base32hex.js');
 exports.config = require('./lib/config.js');

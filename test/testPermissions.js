@@ -30,38 +30,39 @@ var permissions = require('../lib/permissions')(gatekeeperClient);
 
 describe('permissions', function() {
 
-  var res = mockableObject.make('send');
+  var res = mockableObject.make('status', 'send');
   var callback;
 
   beforeEach(function() {
     mockableObject.reset(gatekeeperClient);
     mockableObject.reset(res);
     sinon.stub(res, 'send');
+    sinon.stub(res, 'status');
     callback = sinon.spy();
   });
 
   var checksIfValid = function(testFunction) {
     it('sends response status code 401 Unauthorized if token data not present', function() {
       testFunction({params: {userid: 'stranger'}}, res, callback);
-      expect(res.send).to.have.been.calledWithExactly(401, 'Unauthorized');
+      expect(res.status).to.have.been.calledWithExactly(401);
       expect(callback).to.have.been.calledWithExactly(false);
     });
 
     it('sends response status code 401 Unauthorized if token data is not server and no user id is specified', function() {
       testFunction({_tokendata: {isserver: false}, params: {userid: 'user'}}, res, callback);
-      expect(res.send).to.have.been.calledWithExactly(401, 'Unauthorized');
+      expect(res.status).to.have.been.calledWithExactly(401);
       expect(callback).to.have.been.calledWithExactly(false);
     });
 
     it('sends response status code 401 Unauthorized if params not present', function() {
       testFunction({_tokendata: {isserver: true, userid: 'stranger'}}, res, callback);
-      expect(res.send).to.have.been.calledWithExactly(401, 'Unauthorized');
+      expect(res.status).to.have.been.calledWithExactly(401);
       expect(callback).to.have.been.calledWithExactly(false);
     });
 
     it('sends response status code 401 Unauthorized if params userid not present', function() {
       testFunction({_tokendata: {isserver: true, userid: 'stranger'}, params: {}}, res, callback);
-      expect(res.send).to.have.been.calledWithExactly(401, 'Unauthorized');
+      expect(res.status).to.have.been.calledWithExactly(401);
       expect(callback).to.have.been.calledWithExactly(false);
     });
   };
@@ -69,7 +70,7 @@ describe('permissions', function() {
   var checksIfServer = function(testFunction) {
     it('succeeds if token data is server', function() {
       testFunction({_tokendata: {isserver: true, userid: 'stranger'}, params: {userid: 'user'}}, res, callback);
-      expect(res.send).to.not.have.been.called;
+      expect(res.status).to.not.have.been.called;
       expect(callback).to.have.been.calledWithExactly();
     });
   };
@@ -77,7 +78,7 @@ describe('permissions', function() {
   var checksIfUser = function(testFunction) {
     it('succeeds if user ids match', function() {
       testFunction({_tokendata: {isserver: false, userid: 'user'}, params: {userid: 'user'}}, res, callback);
-      expect(res.send).to.not.have.been.called;
+      expect(res.status).to.not.have.been.called;
       expect(callback).to.have.been.calledWithExactly();
     });
   };
@@ -87,7 +88,7 @@ describe('permissions', function() {
       sinon.stub(gatekeeperClient, 'userInGroup').withArgs('stranger', 'user').callsArgWith(2, {statusCode: 400, message: 'error message'});
 
       testFunction({_tokendata: {isserver: false, userid: 'stranger'}, params: {userid: 'user'}}, res, callback);
-      expect(res.send).to.have.been.calledWithExactly(400);
+      expect(res.status).to.have.been.calledWithExactly(400);
       expect(callback).to.have.been.calledWithExactly(false);
       expect(gatekeeperClient.userInGroup).to.have.been.calledWithExactly('stranger', 'user', sinon.match.func);
     });
@@ -96,7 +97,7 @@ describe('permissions', function() {
       sinon.stub(gatekeeperClient, 'userInGroup').withArgs('stranger', 'user').callsArgWith(2, {message: 'error message'});
 
       testFunction({_tokendata: {isserver: false, userid: 'stranger'}, params: {userid: 'user'}}, res, callback);
-      expect(res.send).to.have.been.calledWithExactly(500);
+      expect(res.status).to.have.been.calledWithExactly(500);
       expect(callback).to.have.been.calledWithExactly(false);
       expect(gatekeeperClient.userInGroup).to.have.been.calledWithExactly('stranger', 'user', sinon.match.func);
     });
@@ -105,7 +106,7 @@ describe('permissions', function() {
       sinon.stub(gatekeeperClient, 'userInGroup').withArgs('stranger', 'user').callsArgWith(2);
 
       testFunction({_tokendata: {isserver: false, userid: 'stranger'}, params: {userid: 'user'}}, res, callback);
-      expect(res.send).to.have.been.calledWithExactly(401, 'Unauthorized');
+      expect(res.status).to.have.been.calledWithExactly(401);
       expect(callback).to.have.been.calledWithExactly(false);
       expect(gatekeeperClient.userInGroup).to.have.been.calledWithExactly('stranger', 'user', sinon.match.func);
     });
@@ -115,7 +116,7 @@ describe('permissions', function() {
       sinon.stub(gatekeeperClient, 'userInGroup').withArgs('stranger', 'user').callsArgWith(2, null, {'custodian': {}});
 
       testFunction({_tokendata: {isserver: false, userid: 'stranger'}, params: {userid: 'user'}}, res, callback);
-      expect(res.send).to.not.have.been.called;
+      expect(res.status).to.not.have.been.called;
       expect(callback).to.have.been.calledWithExactly();
       expect(gatekeeperClient.userInGroup).to.have.been.calledWithExactly('stranger', 'user', sinon.match.func);
     });
@@ -124,7 +125,7 @@ describe('permissions', function() {
       sinon.stub(gatekeeperClient, 'userInGroup').withArgs('stranger', 'user').callsArgWith(2, null, {'view': {}});
 
       testFunction({_tokendata: {isserver: false, userid: 'stranger'}, params: {userid: 'user'}}, res, callback);
-      expect(res.send).to.have.been.calledWithExactly(401, 'Unauthorized');
+      expect(res.status).to.have.been.calledWithExactly(401);
       expect(callback).to.have.been.calledWithExactly(false);
       expect(gatekeeperClient.userInGroup).to.have.been.calledWithExactly('stranger', 'user', sinon.match.func);
     });
@@ -135,7 +136,7 @@ describe('permissions', function() {
       sinon.stub(gatekeeperClient, 'userInGroup').withArgs('stranger', 'user').callsArgWith(2, {statusCode: 400, message: 'error message'});
 
       testFunction({_tokendata: {isserver: false, userid: 'stranger'}, params: {userid: 'user'}}, res, callback);
-      expect(res.send).to.have.been.calledWithExactly(400);
+      expect(res.status).to.have.been.calledWithExactly(400);
       expect(callback).to.have.been.calledWithExactly(false);
       expect(gatekeeperClient.userInGroup).to.have.been.calledWithExactly('stranger', 'user', sinon.match.func);
     });
@@ -144,7 +145,7 @@ describe('permissions', function() {
       sinon.stub(gatekeeperClient, 'userInGroup').withArgs('stranger', 'user').callsArgWith(2, {message: 'error message'});
 
       testFunction({_tokendata: {isserver: false, userid: 'stranger'}, params: {userid: 'user'}}, res, callback);
-      expect(res.send).to.have.been.calledWithExactly(500);
+      expect(res.status).to.have.been.calledWithExactly(500);
       expect(callback).to.have.been.calledWithExactly(false);
       expect(gatekeeperClient.userInGroup).to.have.been.calledWithExactly('stranger', 'user', sinon.match.func);
     });
@@ -153,7 +154,7 @@ describe('permissions', function() {
       sinon.stub(gatekeeperClient, 'userInGroup').withArgs('stranger', 'user').callsArgWith(2, null, {'view': {}});
 
       testFunction({_tokendata: {isserver: false, userid: 'stranger'}, params: {userid: 'user'}}, res, callback);
-      expect(res.send).to.not.have.been.called;
+      expect(res.status).to.not.have.been.called;
       expect(callback).to.have.been.calledWithExactly();
       expect(gatekeeperClient.userInGroup).to.have.been.calledWithExactly('stranger', 'user', sinon.match.func);
     });
@@ -164,7 +165,7 @@ describe('permissions', function() {
       userInGroupStub.withArgs('user', 'stranger').callsArgWith(2, {statusCode: 400, message: 'error message'});
 
       testFunction({_tokendata: {isserver: false, userid: 'stranger'}, params: {userid: 'user'}}, res, callback);
-      expect(res.send).to.have.been.calledWithExactly(400);
+      expect(res.status).to.have.been.calledWithExactly(400);
       expect(callback).to.have.been.calledWithExactly(false);
       expect(gatekeeperClient.userInGroup).to.have.been.calledWithExactly('stranger', 'user', sinon.match.func);
       expect(gatekeeperClient.userInGroup).to.have.been.calledWithExactly('user', 'stranger', sinon.match.func);
@@ -176,7 +177,7 @@ describe('permissions', function() {
       userInGroupStub.withArgs('user', 'stranger').callsArgWith(2, {message: 'error message'});
 
       testFunction({_tokendata: {isserver: false, userid: 'stranger'}, params: {userid: 'user'}}, res, callback);
-      expect(res.send).to.have.been.calledWithExactly(500);
+      expect(res.status).to.have.been.calledWithExactly(500);
       expect(callback).to.have.been.calledWithExactly(false);
       expect(gatekeeperClient.userInGroup).to.have.been.calledWithExactly('stranger', 'user', sinon.match.func);
       expect(gatekeeperClient.userInGroup).to.have.been.calledWithExactly('user', 'stranger', sinon.match.func);
@@ -188,7 +189,7 @@ describe('permissions', function() {
       userInGroupStub.withArgs('user', 'stranger').callsArgWith(2, null, {'view': {}});
 
       testFunction({_tokendata: {isserver: false, userid: 'stranger'}, params: {userid: 'user'}}, res, callback);
-      expect(res.send).to.not.have.been.called;
+      expect(res.status).to.not.have.been.called;
       expect(callback).to.have.been.calledWithExactly();
       expect(gatekeeperClient.userInGroup).to.have.been.calledWithExactly('stranger', 'user', sinon.match.func);
       expect(gatekeeperClient.userInGroup).to.have.been.calledWithExactly('user', 'stranger', sinon.match.func);
@@ -200,7 +201,7 @@ describe('permissions', function() {
       userInGroupStub.withArgs('user', 'stranger').callsArgWith(2);
 
       testFunction({_tokendata: {isserver: false, userid: 'stranger'}, params: {userid: 'user'}}, res, callback);
-      expect(res.send).to.have.been.calledWithExactly(401, 'Unauthorized');
+      expect(res.status).to.have.been.calledWithExactly(401);
       expect(callback).to.have.been.calledWithExactly(false);
       expect(gatekeeperClient.userInGroup).to.have.been.calledWithExactly('stranger', 'user', sinon.match.func);
       expect(gatekeeperClient.userInGroup).to.have.been.calledWithExactly('user', 'stranger', sinon.match.func);
@@ -214,7 +215,7 @@ describe('permissions', function() {
   describe('successResponse', function() {
     it('sends status code with results', function() {
       permissions.successResponse(200, 'SUCCESS', res, callback);
-      expect(res.send).to.have.been.calledWithExactly(200, 'SUCCESS');
+      expect(res.status).to.have.been.calledWithExactly(200);
       expect(callback).to.have.been.calledWithExactly();
     });
   });
@@ -222,19 +223,19 @@ describe('permissions', function() {
   describe('errorResponse', function() {
     it('returns false if no error', function() {
       expect(permissions.errorResponse(null, res, callback)).to.equal(false);
-      expect(res.send).to.not.have.been.called;
+      expect(res.status).to.not.have.been.called;
       expect(callback).to.not.have.been.called;
     });
 
     it('sends status code if one specified in error object and returns true if error', function() {
       expect(permissions.errorResponse({statusCode: 400, 'message': 'error'}, res, callback)).to.equal(true);
-      expect(res.send).to.have.been.calledWithExactly(400);
+      expect(res.status).to.have.been.calledWithExactly(400);
       expect(callback).to.have.been.calledWithExactly(false);
     });
 
     it('sends status code 500 if one not specified in error object and returns true if error', function() {
       expect(permissions.errorResponse({'message': 'error'}, res, callback)).to.equal(true);
-      expect(res.send).to.have.been.calledWithExactly(500);
+      expect(res.status).to.have.been.calledWithExactly(500);
       expect(callback).to.have.been.calledWithExactly(false);
     });
   });
@@ -242,7 +243,7 @@ describe('permissions', function() {
   describe('unauthorizedResponse', function() {
     it('sends status code 401', function() {
       permissions.unauthorizedResponse(res, callback);
-      expect(res.send).to.have.been.calledWithExactly(401, 'Unauthorized');
+      expect(res.status).to.have.been.calledWithExactly(401);
       expect(callback).to.have.been.calledWithExactly(false);
     });
   });
@@ -250,32 +251,32 @@ describe('permissions', function() {
   describe('handleResponse', function() {
     it('sends status code if one specified in error object and returns true if error', function() {
       permissions.handleResponse({statusCode: 400, 'message': 'error'}, true, {}, res, callback);
-      expect(res.send).to.have.been.calledWithExactly(400);
+      expect(res.status).to.have.been.calledWithExactly(400);
       expect(callback).to.have.been.calledWithExactly(false);
     });
 
     it('sends status code 500 if one not specified in error object and returns true if error', function() {
       permissions.handleResponse({'message': 'error'}, true, {}, res, callback);
-      expect(res.send).to.have.been.calledWithExactly(500);
+      expect(res.status).to.have.been.calledWithExactly(500);
       expect(callback).to.have.been.calledWithExactly(false);
     });
 
     it('invokes callback if no error, and success', function() {
       permissions.handleResponse(null, true, {}, res, callback);
-      expect(res.send).to.not.have.been.called;
+      expect(res.status).to.not.have.been.called;
       expect(callback).to.have.been.calledWithExactly();
     });
 
     it('sends status code 401 if no error, no success, and no fail', function() {
       permissions.handleResponse(null, false, {}, res, callback);
-      expect(res.send).to.have.been.calledWithExactly(401, 'Unauthorized');
+      expect(res.status).to.have.been.calledWithExactly(401);
       expect(callback).to.have.been.calledWithExactly(false);
     });
 
     it('invokes fail if no error, no success, and fail', function() {
       var fail = sinon.spy();
       permissions.handleResponse(null, false, {}, res, callback, fail);
-      expect(res.send).to.not.have.been.called;
+      expect(res.status).to.not.have.been.called;
       expect(callback).to.not.have.been.called;
       expect(fail).to.have.been.calledWithExactly({}, res, callback);
     });
@@ -496,7 +497,7 @@ describe('permissions', function() {
 
     it('sends response status code 401 Unauthorized if token data is not server', function() {
       permissions.requireServer({_tokendata: {isserver: false, userid: 'stranger'}, params: {userid: 'user'}}, res, callback);
-      expect(res.send).to.have.been.calledWithExactly(401, 'Unauthorized');
+      expect(res.status).to.have.been.calledWithExactly(401);
       expect(callback).to.have.been.calledWithExactly(false);
     });
   });
@@ -508,7 +509,7 @@ describe('permissions', function() {
 
     it('sends response status code 401 Unauthorized if user ids do not match', function() {
       permissions.requireUser({_tokendata: {isserver: false, userid: 'stranger'}, params: {userid: 'user'}}, res, callback);
-      expect(res.send).to.have.been.calledWithExactly(401, 'Unauthorized');
+      expect(res.status).to.have.been.calledWithExactly(401);
       expect(callback).to.have.been.calledWithExactly(false);
     });
   });
