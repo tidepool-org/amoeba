@@ -46,4 +46,9 @@ describe('mongo.js', function(){
       var obj={ MONGO_USER: 'derrick', MONGO_PASSWORD: 'password', MONGO_SSL: 'True', MONGO_OPT_PARAMS: 'x=y'};
       expect(cs('foo', obj)).to.deep.equal('mongodb://derrick:password@localhost/foo?ssl=true&x=y');
     });
+
+    it('returns simple connection string with USER and PASSWORD and ssl and optparams and hosts', function() {
+      var obj={ MONGO_USER: 'derrick', MONGO_PASSWORD: 'password', MONGO_SSL: 'True', MONGO_OPT_PARAMS: 'x=y', MONGO_HOSTS: 'mongodb1,mongodb2'};
+      expect(cs('foo', obj)).to.deep.equal('mongodb://derrick:password@mongodb1,mongodb2/foo?ssl=true&x=y');
+    });
 });
