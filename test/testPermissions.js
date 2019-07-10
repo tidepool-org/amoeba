@@ -222,19 +222,19 @@ describe('permissions', function() {
 
   describe('errorResponse', function() {
     it('returns false if no error', function() {
-      expect(permissions.errorResponse(null, res, callback)).to.equal(false);
+      permissions.errorResponse(null, res, callback);
       expect(res.status).to.not.have.been.called;
-      expect(callback).to.not.have.been.called;
+      expect(callback).to.have.been.calledWithExactly(true);
     });
 
     it('sends status code if one specified in error object and returns true if error', function() {
-      expect(permissions.errorResponse({statusCode: 400, 'message': 'error'}, res, callback)).to.equal(true);
+      permissions.errorResponse({statusCode: 400, 'message': 'error'}, res, callback);
       expect(res.status).to.have.been.calledWithExactly(400);
       expect(callback).to.have.been.calledWithExactly(false);
     });
 
     it('sends status code 500 if one not specified in error object and returns true if error', function() {
-      expect(permissions.errorResponse({'message': 'error'}, res, callback)).to.equal(true);
+      permissions.errorResponse({'message': 'error'}, res, callback);
       expect(res.status).to.have.been.calledWithExactly(500);
       expect(callback).to.have.been.calledWithExactly(false);
     });

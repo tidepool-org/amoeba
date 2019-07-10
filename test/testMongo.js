@@ -27,28 +27,67 @@ describe('mongo.js', function(){
       expect(cs('foo')).to.deep.equal('mongodb://localhost/foo?ssl=false');
     });
 
+    it('returns simple connection string with provided database', function() {
+      var obj={
+	     TIDEPOOL_STORE_DATABASE: 'bar'
+      };
+      expect(cs('foo',obj)).to.deep.equal('mongodb://localhost/bar?ssl=false');
+    });
+
     it('returns simple connection string with USER', function() {
-      var obj={ MONGO_USER: 'derrick'};
+      var obj={
+	     TIDEPOOL_STORE_USERNAME: 'derrick'
+      };
       expect(cs('foo', obj)).to.deep.equal('mongodb://derrick@localhost/foo?ssl=false');
     });
 
     it('returns simple connection string with USER and PASSWORD', function() {
-      var obj={ MONGO_USER: 'derrick', MONGO_PASSWORD: 'password'};
+      var obj={
+	     TIDEPOOL_STORE_USERNAME: 'derrick',
+	     TIDEPOOL_STORE_PASSWORD: 'password'
+      };
       expect(cs('foo', obj)).to.deep.equal('mongodb://derrick:password@localhost/foo?ssl=false');
     });
 
     it('returns simple connection string with USER and PASSWORD and ssl', function() {
-      var obj={ MONGO_USER: 'derrick', MONGO_PASSWORD: 'password', MONGO_SSL: 'True'};
+      var obj={
+	     TIDEPOOL_STORE_USERNAME: 'derrick',
+	     TIDEPOOL_STORE_PASSWORD: 'password',
+	     TIDEPOOL_STORE_TLS: 'True'
+      };
       expect(cs('foo', obj)).to.deep.equal('mongodb://derrick:password@localhost/foo?ssl=true');
     });
 
     it('returns simple connection string with USER and PASSWORD and ssl and optparams', function() {
-      var obj={ MONGO_USER: 'derrick', MONGO_PASSWORD: 'password', MONGO_SSL: 'True', MONGO_OPT_PARAMS: 'x=y'};
+      var obj={
+	     TIDEPOOL_STORE_USERNAME: 'derrick',
+	     TIDEPOOL_STORE_PASSWORD: 'password',
+	     TIDEPOOL_STORE_TLS: 'True',  
+             TIDEPOOL_STORE_OPT_PARAMS: 'x=y'
+      };
       expect(cs('foo', obj)).to.deep.equal('mongodb://derrick:password@localhost/foo?ssl=true&x=y');
     });
 
     it('returns simple connection string with USER and PASSWORD and ssl and optparams and hosts', function() {
-      var obj={ MONGO_USER: 'derrick', MONGO_PASSWORD: 'password', MONGO_SSL: 'True', MONGO_OPT_PARAMS: 'x=y', MONGO_HOSTS: 'mongodb1,mongodb2'};
+      var obj={
+	     TIDEPOOL_STORE_USERNAME: 'derrick',
+	     TIDEPOOL_STORE_PASSWORD: 'password',
+	     TIDEPOOL_STORE_TLS: 'True',  
+             TIDEPOOL_STORE_OPT_PARAMS: 'x=y',
+             TIDEPOOL_STORE_ADDRESSES: 'mongodb1,mongodb2'
+      };
       expect(cs('foo', obj)).to.deep.equal('mongodb://derrick:password@mongodb1,mongodb2/foo?ssl=true&x=y');
+    });
+
+    it('returns simple connection string with USER and PASSWORD and ssl and optparams and hosts and protocol ', function() {
+      var obj={
+	     TIDEPOOL_STORE_USERNAME: 'derrick',
+	     TIDEPOOL_STORE_PASSWORD: 'password',
+	     TIDEPOOL_STORE_TLS: 'True',  
+             TIDEPOOL_STORE_OPT_PARAMS: 'x=y',
+             TIDEPOOL_STORE_ADDRESSES: 'mongodb1,mongodb2',
+             TIDEPOOL_STORE_PROTOCOL: 'mongodb+srv'
+      };
+      expect(cs('foo', obj)).to.deep.equal('mongodb+srv://derrick:password@mongodb1,mongodb2/foo?ssl=true&x=y');
     });
 });
