@@ -20,7 +20,7 @@
 
 var expect = require('salinity').expect;
 
-var cs = require('../lib/mongo.js').toConnectionString;
+var cs = require('../lib/mongoUtil.js').toConnectionString;
 
 describe('mongo.js', function(){
     it('returns simple connection string with no args', function() {
@@ -79,14 +79,14 @@ describe('mongo.js', function(){
       expect(cs('foo', obj)).to.deep.equal('mongodb://derrick:password@mongodb1,mongodb2/foo?ssl=true&x=y');
     });
 
-    it('returns simple connection string with USER and PASSWORD and ssl and optparams and hosts and protocol ', function() {
+    it('returns simple connection string with USER and PASSWORD and ssl and optparams and hosts and scheme', function() {
       var obj={
 	     TIDEPOOL_STORE_USERNAME: 'derrick',
 	     TIDEPOOL_STORE_PASSWORD: 'password',
 	     TIDEPOOL_STORE_TLS: 'True',  
              TIDEPOOL_STORE_OPT_PARAMS: 'x=y',
              TIDEPOOL_STORE_ADDRESSES: 'mongodb1,mongodb2',
-             TIDEPOOL_STORE_PROTOCOL: 'mongodb+srv'
+             TIDEPOOL_STORE_SCHEME: 'mongodb+srv'
       };
       expect(cs('foo', obj)).to.deep.equal('mongodb+srv://derrick:password@mongodb1,mongodb2/foo?ssl=true&x=y');
     });
