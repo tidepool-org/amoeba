@@ -221,7 +221,7 @@ describe('permissions', function() {
   });
 
   describe('errorResponse', function() {
-    it('returns false if no error', function() {
+    it('calls next callback with true if no error', function() {
       permissions.errorResponse(null, res, callback);
       expect(res.status).to.not.have.been.called;
       expect(callback).to.have.been.calledWithExactly(true);
