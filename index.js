@@ -18,7 +18,7 @@
 exports.arrays = require('./lib/arrays.js');
 exports.base32hex = require('./lib/base32hex.js');
 exports.config = require('./lib/config.js');
-exports.mongo = require('./lib/mongo.js');
+exports.mongoUtil = require('./lib/mongoUtil.js');
 exports.except = require('./lib/except.js');
 exports.files = require('./lib/files.js');
 exports.httpClient = require('./lib/httpClient.js');
