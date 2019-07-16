@@ -21,8 +21,17 @@
 var expect = require('salinity').expect;
 
 var cs = require('../lib/mongoUtil.js').toConnectionString;
+var getDatabaseName = require('../lib/mongoUtil.js').getDatabaseName;
 
 describe('mongo.js', function(){
+    it('returns default database name on empty string', function() {
+      expect(getDatabaseName('','foo')).to.deep.equal('foo');
+    });
+
+    it('extractss database from uri', function() {
+      expect(getDatabaseName('mongodb+srv://derrick:password@mongodb1,mongodb2/bar?ssl=true&x=y','foo')).to.deep.equal('bar');
+    });
+
     it('returns simple connection string with no args', function() {
       expect(cs('foo')).to.deep.equal('mongodb://localhost/foo?ssl=false');
     });
