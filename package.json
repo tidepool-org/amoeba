@@ -1,6 +1,6 @@
 {
   "name": "amoeba",
-  "version": "0.8.0",
+  "version": "0.8.1",
   "description": "Common library for tidepool.org",
   "keywords": [
     "common",
@@ -30,12 +30,12 @@
   "repository": "https://github.com/tidepool-org/amoeba.git",
   "dependencies": {
     "bunyan": "1.8.12",
-    "lodash": "4.17.11",
-    "request": "^2.88.0"
+    "lodash": "4.17.19",
+    "request": "^2.88.2"
   },
   "devDependencies": {
-    "jshint": "^2.10.2",
-    "mocha": "^6.1.4",
+    "jshint": "^2.12.0",
+    "mocha": "^6.2.3",
     "salinity": "0.0.8"
   }
 }
