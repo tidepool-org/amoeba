@@ -42,7 +42,9 @@
   "devDependencies": {
     "jshint": "^2.12.0",
     "mocha": "^10.3.0",
-    "salinity": "0.0.9",
-    "serialize-javascript": "^6.0.2"
+    "salinity": "0.0.9"
+  },
+  "overrides": {
+    "serialize-javascript@6.0.0": "6.0.2"
   }
 }
