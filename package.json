@@ -1,6 +1,6 @@
 {
   "name": "amoeba",
-  "version": "1.2.1-alpha.4",
+  "version": "1.2.1",
   "description": "Common library for tidepool.org",
   "keywords": [
     "common",
@@ -42,6 +42,6 @@
   "devDependencies": {
     "jshint": "^2.12.0",
     "mocha": "^10.2.0",
-    "salinity": "0.0.9-alpha.4"
+    "salinity": "0.0.9"
   }
 }
