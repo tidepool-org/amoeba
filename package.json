@@ -1,6 +1,6 @@
 {
   "name": "amoeba",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Common library for tidepool.org",
   "keywords": [
     "common",
@@ -25,19 +25,26 @@
     "lib": "./lib"
   },
   "scripts": {
+    "lint": "jshint lib test",
     "test": "mocha"
   },
-  "repository": "https://github.com/tidepool-org/amoeba.git",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tidepool-org/amoeba.git"
+  },
   "dependencies": {
-    "bunyan": "1.8.12",
-    "kafkajs": "^1.16.0",
-    "lodash": "4.17.19",
-    "request": "^2.88.2",
+    "axios": "^1.6.8",
+    "bunyan": "1.8.15",
+    "kafkajs": "^1.14.0",
+    "lodash": "4.17.21",
     "uuid": "^8.3.1"
   },
   "devDependencies": {
     "jshint": "^2.12.0",
-    "mocha": "^6.2.3",
-    "salinity": "0.0.8"
+    "mocha": "^10.3.0",
+    "salinity": "0.0.9"
+  },
+  "overrides": {
+    "serialize-javascript@6.0.0": "6.0.2"
   }
 }
