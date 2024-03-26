@@ -1,6 +1,6 @@
 {
   "name": "amoeba",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "Common library for tidepool.org",
   "keywords": [
     "common",
@@ -45,6 +45,6 @@
     "salinity": "0.0.9"
   },
   "overrides": {
-    "serialize-javascript@6.0.0": "6.0.2"
+    "serialize-javascript@>=6.0.0 <6.0.2": "6.0.2"
   }
 }
