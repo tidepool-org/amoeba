@@ -24,7 +24,7 @@ var base32Hex = require('../index.js').base32hex;
 describe('encodeBuffer', function(){
   describe('test vectors from rfc 4648', function(){
     function run(str) {
-      return expect(base32Hex.encodeBuffer(new Buffer(str)));
+      return expect(base32Hex.encodeBuffer(Buffer.from(str)));
     }
 
     it('BASE32-HEX("") = ""', function(){
@@ -58,7 +58,7 @@ describe('encodeBuffer', function(){
 
   describe('test padding override', function(){
     function run(str, pad) {
-      return expect(base32Hex.encodeBuffer(new Buffer(str), {paddingChar: pad}));
+      return expect(base32Hex.encodeBuffer(Buffer.from(str), {paddingChar: pad}));
     }
 
     it('pads with a hypen instead', function(){
