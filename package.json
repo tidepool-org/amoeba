@@ -33,7 +33,7 @@
     "url": "git+https://github.com/tidepool-org/amoeba.git"
   },
   "dependencies": {
-    "axios": "^1.6.8",
+    "axios": "^1.10.0",
     "bunyan": "1.8.15",
     "kafkajs": "^1.14.0",
     "lodash": "4.17.21",
